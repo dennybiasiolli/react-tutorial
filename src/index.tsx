@@ -2,12 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 
-class Square extends React.Component<{ value?: string }> {
+class Square extends React.Component<{ value?: string, onClick: Function }> {
   render() {
     return (
       <button
         className="square"
-        onClick={() => this.setState({ value: 'X' })}
+        onClick={() => this.props.onClick()}
       >
         {this.props.value}
       </button >
@@ -23,8 +23,17 @@ class Board extends React.Component<{}, { squares: string[] }> {
     }
   }
 
+  handleClick(i: number) {
+    const squares = this.state.squares.slice();
+    squares[i] = 'X';
+    this.setState({ squares });
+  }
+
   renderSquare(i: number) {
-    return <Square value={this.state.squares[i]} />;
+    return <Square
+      value={this.state.squares[i]}
+      onClick={() => this.handleClick(i)}
+    />;
   }
 
   render() {
