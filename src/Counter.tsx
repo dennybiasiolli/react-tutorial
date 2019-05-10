@@ -13,7 +13,7 @@ export function Counter() {
     return () => {
       document.title = 'Counter unmounted';
     }
-  });
+  }, [count]);
 
   return (
     <div>
