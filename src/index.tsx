@@ -73,7 +73,19 @@ class Board extends React.Component<{}, { squares: string[], xIsNext: boolean }>
   }
 }
 
-class Game extends React.Component {
+class Game extends React.Component<{}, {
+  history: [{ squares: string[] }],
+  xIsNext: boolean
+}>  {
+  constructor(props: any) {
+    super(props);
+    this.state = {
+      history: [{
+        squares: Array(9).fill(null),
+      }],
+      xIsNext: true,
+    }
+  }
   render() {
     return (
       <div className="game">
