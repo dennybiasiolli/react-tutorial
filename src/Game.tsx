@@ -1,23 +1,30 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { connect } from 'react-redux';
+import { Dispatch, bindActionCreators } from 'redux';
 
 import { Board } from './Board';
-import { calculateWinner } from './utility';
+import { RootState } from './store';
+import { makeMove, jumpTo } from './store/reducers/tictactoe-actions';
 
 
-export function Game() {
-  const [state, setState] = useState({
-    history: [{
-      squares: Array(9).fill(null),
-    }],
-    stepNumber: 0,
-    xIsNext: true,
-  });
+const mapStateToProps = (state: RootState) => ({
+  current: state.tictactoe.current,
+  history: state.tictactoe.history,
+  stepNumber: state.tictactoe.stepNumber,
+  winner: state.tictactoe.winner,
+  xIsNext: state.tictactoe.xIsNext,
+});
 
-  const history = state.history;
-  const current = history[state.stepNumber];
-  const winner = calculateWinner(current.squares);
+const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators({
+  makeMove: makeMove,
+  jumpTo: jumpTo,
+}, dispatch);
 
-  const moves = history.map((step, move) => {
+
+export interface GameProps extends ReturnType<typeof mapStateToProps>, ReturnType<typeof mapDispatchToProps> { };
+
+function GameBase({ current, history, winner, xIsNext, makeMove, jumpTo }: GameProps) {
+  const moves = history.map((_step, move) => {
     const desc = move ?
       'Go to move #' + move :
       'Go to game start';
@@ -32,7 +39,7 @@ export function Game() {
   if (winner) {
     status = 'Winner: ' + winner;
   } else {
-    status = 'Next player: ' + (state.xIsNext ? 'X' : 'O');
+    status = 'Next player: ' + (xIsNext ? 'X' : 'O');
   }
 
   return (
@@ -40,7 +47,7 @@ export function Game() {
       <div className="game-board">
         <Board
           squares={current.squares}
-          onClick={(i: number) => handleClick(i)}
+          onClick={makeMove}
         />
       </div>
       <div className="game-info">
@@ -49,29 +56,9 @@ export function Game() {
       </div>
     </div>
   );
-
-  function handleClick(i: number) {
-    const history = state.history.slice(0, state.stepNumber + 1);
-    const current = history[history.length - 1];
-    const squares = current.squares.slice();
-    if (calculateWinner(squares) || squares[i]) {
-      return;
-    }
-    squares[i] = state.xIsNext ? 'X' : 'O';
-    setState({
-      history: history.concat([{
-        squares: squares,
-      }]),
-      stepNumber: history.length,
-      xIsNext: !state.xIsNext,
-    });
-  }
-
-  function jumpTo(step: number) {
-    setState({
-      ...state,
-      stepNumber: step,
-      xIsNext: (step % 2) === 0,
-    });
-  }
 }
+
+export const Game = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(GameBase)
