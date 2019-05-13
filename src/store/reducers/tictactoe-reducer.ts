@@ -29,10 +29,10 @@ const initialState: TictactoeState = {
 
 export function TictactoeReducer(
   state = initialState,
-  action: TictactoeActions,
+  action: TictactoeActionTypes,
 ): TictactoeState {
   switch (action.type) {
-    case TictactoeActionTypes.MAKE_MOVE:
+    case TictactoeActions.MAKE_MOVE:
       const history = state.history.slice(0, state.stepNumber + 1);
       const current = history[history.length - 1];
       if (state.winner || current.squares[action.payload.i]) {
@@ -54,7 +54,7 @@ export function TictactoeReducer(
         xIsNext: !state.xIsNext,
       };
 
-    case TictactoeActionTypes.JUMP_TO:
+    case TictactoeActions.JUMP_TO:
       return {
         ...state,
         current: state.history[action.payload.step],
