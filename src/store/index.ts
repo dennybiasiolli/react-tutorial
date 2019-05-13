@@ -1,7 +1,9 @@
 import { createStore, combineReducers } from 'redux';
 
 import { CounterReducer } from './reducers/counter-reducer';
+import { CounterActionTypes } from './reducers/counter-types';
 import { TictactoeReducer } from './reducers/tictactoe-reducer';
+import { TictactoeActionTypes } from './reducers/tictactoe-types';
 
 
 const rootReducer = combineReducers({
@@ -10,5 +12,5 @@ const rootReducer = combineReducers({
 });
 
 export type RootState = ReturnType<typeof rootReducer>;
-
-export default () => createStore(rootReducer);
+export type RootAction = CounterActionTypes | TictactoeActionTypes;
+export default () => createStore<RootState, RootAction, {}, {}>(rootReducer);

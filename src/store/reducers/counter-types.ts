@@ -1,19 +1,19 @@
 import { Action } from 'redux';
 
 
-export enum CounterActionTypes {
+export enum CounterActions {
   INCREMENT = 'INCREMENT',
   DECREMENT = 'DECREMENT',
 }
 
 interface IncrementAction extends Action {
-  type: CounterActionTypes.INCREMENT,
+  type: CounterActions.INCREMENT,
   payload: { change: number },
 }
 
 interface DecrementAction extends Action {
-  type: CounterActionTypes.DECREMENT,
+  type: CounterActions.DECREMENT,
   payload: { change: number },
 }
 
-export type CounterActions = IncrementAction | DecrementAction;
+export type CounterActionTypes = IncrementAction | DecrementAction;
