@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Dispatch, bindActionCreators } from 'redux';
+import { Button, CardContent } from '@material-ui/core';
 
 import { Board } from './Board';
 import { RootState } from './store';
@@ -30,7 +31,7 @@ function GameBase({ current, history, winner, xIsNext, makeMove, jumpTo }: GameP
       'Go to game start';
     return (
       <li key={move}>
-        <button onClick={() => jumpTo(move)}>{desc}</button>
+        <Button variant="contained" onClick={() => jumpTo(move)}>{desc}</Button>
       </li>
     );
   });
@@ -43,7 +44,7 @@ function GameBase({ current, history, winner, xIsNext, makeMove, jumpTo }: GameP
   }
 
   return (
-    <div className="game">
+    <CardContent className="game">
       <div className="game-board">
         <Board
           squares={current.squares}
@@ -54,7 +55,7 @@ function GameBase({ current, history, winner, xIsNext, makeMove, jumpTo }: GameP
         <div>{status}</div>
         <ol>{moves}</ol>
       </div>
-    </div>
+    </CardContent>
   );
 }
 
