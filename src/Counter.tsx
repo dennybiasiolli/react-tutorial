@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Dispatch, bindActionCreators } from 'redux';
+import { Button, CardContent } from '@material-ui/core';
 
 import { RootState } from './store';
 import { increment, decrement } from './store/reducers/counter-actions';
@@ -29,11 +30,11 @@ function CounterBase({ count, setIncrement, setDecrement }: CounterProps) {
   }, [count]);
 
   return (
-    <div>
+    <CardContent>
       <p>You clicked {count} times</p>
-      <button onClick={() => setIncrement(1)}>+</button>
-      <button onClick={() => setDecrement(1)}>-</button>
-    </div>
+      <Button variant="contained" color="primary" onClick={() => setIncrement(1)}>+</Button>
+      <Button variant="contained" color="primary" onClick={() => setDecrement(1)}>-</Button>
+    </CardContent>
   )
 }
 
