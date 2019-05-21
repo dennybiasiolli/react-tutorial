@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { Counter } from './Counter';
-import { Game } from './Game';
+import { Counter } from './components/Counter';
+import { Game } from './components/Game';
 
 
 export function App() {
