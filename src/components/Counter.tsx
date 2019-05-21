@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import { Dispatch, bindActionCreators } from 'redux';
 import { Button, CardContent } from '@material-ui/core';
 
-import { RootState } from './store';
-import { increment, decrement } from './store/reducers/counter-actions';
+import { RootState } from '../store';
+import { increment, decrement } from '../store/reducers/counter-actions';
 
 
 const mapStateToProps = (state: RootState) => ({

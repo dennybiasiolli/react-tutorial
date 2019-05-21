@@ -4,8 +4,8 @@ import { Dispatch, bindActionCreators } from 'redux';
 import { Button, CardContent } from '@material-ui/core';
 
 import { Board } from './Board';
-import { RootState } from './store';
-import { makeMove, jumpTo } from './store/reducers/tictactoe-actions';
+import { RootState } from '../store';
+import { makeMove, jumpTo } from '../store/reducers/tictactoe-actions';
 
 
 const mapStateToProps = (state: RootState) => ({
